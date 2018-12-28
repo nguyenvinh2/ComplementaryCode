@@ -41,12 +41,6 @@ plt.xlabel('time (in micro-seconds)')
 plt.ylabel('Amplitude')
 plt.show()
 
-
-
-
-
-
-
 autoCorrTime = numpy.linspace(-8,8,num=159)
 combine = plt.plot(autoCorrTime, compTotal, 'r', label='Combined Signal')
 lineA, = plt.plot(autoCorrTime, autoCorrA, 'b', label='Signal A')
@@ -54,5 +48,40 @@ lineB, = plt.plot(autoCorrTime, autoCorrB, 'g', label='Signal B')
 plt.legend(handler_map={lineA: HandlerLine2D(numpoints=4)})
 plt.title('Autocorrelation of Complementary Codes')
 plt.xlabel('time (in micro-seconds)')
+plt.ylabel('Signal Strength')
+plt.show()
+
+plt.subplot(2,1,1)
+plt.plot(abs(complexA)**2)
+plt.title('Unfiltered Signal Return A')
+plt.ylabel('Signal Strength')
+plt.subplot(2,1,2)
+plt.plot(abs(complexB)**2)
+plt.title(' Unfiltered Signal Return B')
+plt.xlabel('Range')
+plt.ylabel('Signal Strength')
+plt.show()
+
+signalcorrelationA = numpy.correlate(complexA, numpy.array([1,1,1,-1,1,1,-1,1]), mode='full')
+signalcorrelationB = numpy.correlate(complexB, numpy.array([1,1,1,-1,-1,-1,1,-1]), mode='full')
+
+plt.subplot(2,1,1)
+plt.plot(abs(signalcorrelationA[8:])**2)
+plt.title('Signal Return A Correlated')
+plt.ylabel('Signal Strength')
+plt.subplot(2,1,2)
+plt.plot(abs(signalcorrelationB[8:])**2)
+plt.title('Signal Return B Correlated')
+plt.xlabel('Range')
+plt.ylabel('Signal Strength')
+plt.show()
+
+
+
+
+
+combine = plt.plot(abs(signalcorrelationA[8:]+signalcorrelationB[8:])**2, 'r', label='Combined Return')
+plt.title('Combined Return Signal Using Complementary Codes')
+plt.xlabel('Range')
 plt.ylabel('Signal Strength')
 plt.show()
