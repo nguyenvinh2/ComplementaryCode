@@ -15,7 +15,14 @@ This repo uses an 8 baud complementary code for analysis:
 
 ### Signal Template for 8 baud Complementary Code
 
+The figure below plots both sequences over a length of time using 80 data points:
+
 ![Console](assets/compfilter.PNG)
+
+Each sequence is then [Autocorrelated](https://en.wikipedia.org/wiki/Autocorrelation) with each other and can be seen in the blue and green plot.
+Unlike Barker Codes, these individual signals have high sidelobes which is undesirable in determining targets.
+However, when summed, the out-of-phase sidelobes cancel out, leaving only the main signal in the center.
+
 ![Console](assets/filterautocorr.PNG)
 
 ### Sample Radar Return of 2 Complementary Pulse
